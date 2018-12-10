@@ -2,8 +2,15 @@
 	#include <SFML/Graphics.hpp>
 	#include <time.h>
 	
+	bool isCollide(sf::Sprite s1, sf::Sprite s2) {
+		return s1.getGlobalBounds().intersects(s2.getGlobalBounds());
+		
+	}
 	
 	int main() {
+		
+		srand(time(NULL));
+		
 		sf::RenderWindow app(sf::VideoMode(520, 450), "Alkakoid");
 		app.setFramerateLimit(60);
 		
@@ -30,12 +37,40 @@
 				n++;
 			}
 		
+		double dx = 6, dy = 5;
+		
 		while(app.isOpen()) {
 			sf::Event e;
 			while (app.pollEvent(e)) {
 				if (e.type == sf::Event::Closed) 
 					app.close();
 			}
+		
+		sBall.move(dx, 0);
+		
+		for (int i = 0; i < n; i++) 
+			if (isCollide(sBall, block[i])) {
+				block[i].setPosition(-100, 0);
+				dx = -dx;
+			}
+		
+		sBall.move(0, dy);
+		for (int i = 0; i < n; i++) 
+			if (isCollide(sBall, block[i])) {
+				block[i].setPosition(-100, 0);
+				dy = -dy;
+			}
+		
+		
+		sf::Vector2f b = sBall.getPosition();
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) sPaddle.move(6, 0);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) sPaddle.move(-6, 0);
+		
+		if (isCollide(sPaddle, sBall)) dy = -(rand() % 5 + 2);
+		
+		if (b.x < 0 || b.x > 520) dx = -dx;
+		if (b.y < 0 || b.y > 450) dy = -dy;
 		
 		app.clear();
 		app.draw(sBackground);
