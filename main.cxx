@@ -14,12 +14,17 @@
 		sf::RenderWindow app(sf::VideoMode(520, 450), "Alkakoid");
 		app.setFramerateLimit(60);
 		
-		sf::Texture t1, t2, t3, t4, t5;
+		sf::Texture t1, t2, t3, t4, t5, t6, t7, t8;
 		
 		t1.loadFromFile("images/block01.png");
 		t2.loadFromFile("images/background.jpg");
 		t3.loadFromFile("images/ball.png");
 		t4.loadFromFile("images/paddle.png");
+		
+		t5.loadFromFile("images/block02.png");
+		t6.loadFromFile("images/block03.png");
+		t7.loadFromFile("images/block04.png");
+		t8.loadFromFile("images/block05.png");
 		
 		sf::Sprite sBackground(t2), sBall(t3), sPaddle(t4);
 		
@@ -28,16 +33,35 @@
 		
 		sf::Sprite block[1000];
 		
-		int n = 0;
+		int n = 1;
 		
 		for (int i = 1; i <= 10; i++) 
 			for (int j = 1; j <= 10; j++) {
-				block[n].setTexture(t1);
+				switch (rand() % 10 + 1) {
+					case 2: 
+						block[n].setTexture(t5); break;
+					case 3: 
+						block[n].setTexture(t6); break;
+					case 4: 
+						block[n].setTexture(t7); break;
+					case 5: 
+						block[n].setTexture(t8); break;
+        			default: 
+						block[n].setTexture(t1);
+				}
+
+				
+				
+				if ((rand() % 5) == 0) block[n].setTexture(t5);
+				if ((rand() % 5) == 1) block[n].setTexture(t6);
+				if ((rand() % 5) == 2) block[n].setTexture(t7);
+				if ((rand() % 5) == 3) block[n].setTexture(t8);
+								
 				block[n].setPosition(i * 43, j * 20);
 				n++;
 			}
 		
-		double dx = 6, dy = 5;
+		double dx = 4, dy = 3;
 		
 		while(app.isOpen()) {
 			sf::Event e;
