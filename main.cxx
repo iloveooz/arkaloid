@@ -49,13 +49,11 @@
         			default: 
 						block[n].setTexture(t1);
 				}
-
 				
-				
-				if ((rand() % 5) == 0) block[n].setTexture(t5);
-				if ((rand() % 5) == 1) block[n].setTexture(t6);
-				if ((rand() % 5) == 2) block[n].setTexture(t7);
-				if ((rand() % 5) == 3) block[n].setTexture(t8);
+				if ((rand() % 5) == 0) block[n].setTexture(t8);
+				if ((rand() % 5) == 1) block[n].setTexture(t7);
+				if ((rand() % 5) == 2) block[n].setTexture(t6);
+				if ((rand() % 5) == 3) block[n].setTexture(t5);
 								
 				block[n].setPosition(i * 43, j * 20);
 				n++;
